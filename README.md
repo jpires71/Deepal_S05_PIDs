@@ -74,4 +74,6 @@ Current Headers with data (service 22):
 | 742 | MCU - Motor Control Unit |
 | 744 | OBC - Charging Module? |
 
-
+## 2DO
+ - Obtain additional parameters like SOH, EFC, ...
+ - Conclude the mapping
