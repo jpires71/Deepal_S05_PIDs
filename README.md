@@ -23,6 +23,16 @@
 
 | DID | Notes |
 |------|-------|
+| F230 | |
+| F231 | |
+| F233 | |
+| F234 | |
+| F239 | |
+| F254 | |
+| F255 | |
+| F256 | |
+| F257 | |
+| F262 | |
 | F27D | Constant value observed across captures |
 | F27E | Constant value observed across captures |
 | F27F | Constant value observed across captures |
