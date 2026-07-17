@@ -20,7 +20,7 @@
 | F253 | 38 | Temperature Min Cell | Identified |
 | F3E0 |  | Voltage Cells Array | |
 | F45B |  | SOC gross (255 @ 100%) | | 
-| F4B8 |  | Voltage Cells (Max/Min)? | |
+| F4B9 |  | Voltage Cells (Max/Min)? | |
 
 ## Unidentified DIDs
 
