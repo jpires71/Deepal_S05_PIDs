@@ -39,6 +39,7 @@
 | F27D | Constant value observed across captures |
 | F27E | Constant value observed across captures |
 | F27F | Constant value observed across captures |
+| F4B7 | |
 
 These three DIDs were initially considered possible SOH-related parameters, but no evidence currently supports that assumption.
 
@@ -49,7 +50,7 @@ These three DIDs were initially considered possible SOH-related parameters, but 
 | CC Resistance | F260 |
 | CC2 Resistance | F261 |
 | Shunt Initial Resistance (R0) | F27C |
-| Insulation Resistance | F264 
+| Insulation Resistance | F264 |
 
 ## Car Scanner Sensors NOT Mapped|
 
