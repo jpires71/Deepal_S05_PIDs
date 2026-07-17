@@ -14,10 +14,13 @@
 | F22F |   100 | SOC direct | Identified |
 | F228 | 399.9 | Voltage DC Pack | Identified |
 | F229 | -0.5 | Current DC Pack | Identified |
-| F250 | 3282 | Voltage Max cel | Identified |
-| F251 | 3280 | Voltage Min cel | Identified |
-| F252 | 39 | Temperature Max cel | Identified |
-| F253 | 38 | Temperature Min cel | Identified |
+| F250 | 3282 | Voltage Max Cell | Identified |
+| F251 | 3280 | Voltage Min Cell | Identified |
+| F252 | 39 | Temperature Max Cell | Identified |
+| F253 | 38 | Temperature Min Cell | Identified |
+| F3E0 |  | Voltage Cells Array | |
+| F45B |  | SOC gross (255 @ 100%) | | 
+| F4B8 |  | Voltage Cells (Max/Min)? | |
 
 ## Unidentified DIDs
 
