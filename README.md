@@ -51,7 +51,7 @@ These three DIDs were initially considered possible SOH-related parameters, but 
 | CC Resistance | F260 |
 | CC2 Resistance | F261 |
 | Shunt Initial Resistance (R0) | F27C |
-| Insulation Resistance | F264 |
+| BMS SOH | F264 |
 
 ## Car Scanner Sensors NOT Mapped|
 
