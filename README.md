@@ -18,6 +18,7 @@
 | F251 | 3280 | Voltage Min Cell | Identified |
 | F252 | 39 | Temperature Max Cell | Identified |
 | F253 | 38 | Temperature Min Cell | Identified |
+| F264 | 98.53 | BMS SOH | Identified with maximum uncertainty of 0.22% |
 | F3E0 |  | Voltage Cells Array | |
 | F45B |  | SOC gross (255 @ 100%) | | 
 | F4B9 |  | Voltage Cells (Max/Min)? | |
@@ -74,7 +75,7 @@ Originally investigated as a possible energy or SOH-related parameter.
 Current evidence indicates:
 
 ```text
-F264 = Insulation Resistance
+F264 = BMS SOH dynamic measurement with a maximum variability of 0.22%
 ```
 Current Headers with data (service 22):
 
