@@ -76,6 +76,23 @@ Current evidence indicates:
 
 ```text
 F264 = BMS SOH dynamic measurement with a maximum variability of 0.22%
+
+Statistical data:
+PID F264
+
+Fórmula used:
+SOH = 100 - A/68
+
+Resultado obtido:
+SOH médio = 98.51 %
+
+Standard Deviation = 0.052 %
+
+Estimated Util Capacity:
+66.99 kWh
+
+Estimate Degradation:
+1.49 %
 ```
 Current Headers with data (service 22):
 
