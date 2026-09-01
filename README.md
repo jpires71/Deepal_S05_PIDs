@@ -83,9 +83,8 @@ PID F264
 Fórmula used:
 SOH = 100 - A/68
 
-Resultado obtido:
-SOH médio = 98.51 %
-
+Analysis:
+Average SOH = 98.51 %
 Standard Deviation = 0.052 %
 
 Estimated Util Capacity:
