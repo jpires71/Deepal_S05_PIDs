@@ -1,110 +1,395 @@
-# Deepal S05 / S07 BMS DID Mapping
+# Deepal S05 OBD-II PID Research
 
-> Working notes from OBD investigations on Changan Deepal S05.
-> Header used for all identified DIDs: `7A1`
+Community reverse-engineering project for the Deepal S05 (Changan Deepal S05).
 
-## Identified PID/DIDs
+The objective of this repository is to identify, validate and document BMS, powertrain, thermal management and battery-health related PIDs for use with Car Scanner, ABRP and custom telemetry solutions.
 
-| DID | Value Observed | Meaning | Status |
-|------|------:|----------|---------|
-| F260 | 8000 | CC Resistance | Identified |
-| F261 | 8000 | CC2 Resistance | Identified |
-| F27C | 16880 | Shunt Initial Resistance (R0) | Identified |
-| F264 | 27389 | Insulation Resistance | Identified | (dynanmic value)
-| F22F |   100 | SOC direct | Identified |
-| F228 | 399.9 | Voltage DC Pack | Identified |
-| F229 | -0.5 | Current DC Pack | Identified |
-| F250 | 3282 | Voltage Max Cell | Identified |
-| F251 | 3280 | Voltage Min Cell | Identified |
-| F252 | 39 | Temperature Max Cell | Identified |
-| F253 | 38 | Temperature Min Cell | Identified |
-| F264 | 98.53 | BMS SOH | Identified with maximum uncertainty of 0.22% |
-| F3E0 |  | Voltage Cells Array | |
-| F45B |  | SOC gross (255 @ 100%) | | 
-| F4B9 |  | Voltage Cells (Max/Min)? | |
+---
 
-## Unidentified DIDs
+# Vehicle Under Test
 
-| DID | Notes |
-|------|-------|
-| F230 | |
-| F231 | |
-| F233 | |
-| F234 | |
-| F239 | |
-| F254 | |
-| F255 | |
-| F256 | |
-| F257 | |
-| F262 | |
-| F27D | Constant value observed across captures |
-| F27E | Constant value observed across captures |
-| F27F | Constant value observed across captures |
-| F4B7 | |
+- Deepal S05
+- CATL LFP battery
+- Gross battery: 68.8 kWh
+- Usable battery: ~68 kWh
+- Odometer during testing: ~5,000 km
 
-These three DIDs were initially considered possible SOH-related parameters, but no evidence currently supports that assumption.
+---
 
-## Car Scanner Sensors Mapped
+# PID Validation Status
 
-| Car Scanner Sensor | DID |
-|-------------------|-----|
-| CC Resistance | F260 |
-| CC2 Resistance | F261 |
-| Shunt Initial Resistance (R0) | F27C |
-| BMS SOH | F264 |
+## ✅ Fully Validated
 
-## Car Scanner Sensors NOT Mapped|
+### SOC Direct
 
-| Car Scanner Sensor | DID |
-|-------------------|-----|
-| [BMS] Battery Total Voltage | ? |
-| [BMS] Battery Total Current | ? |
-| [BMS] Battery Cell Max Voltage | F228? |
-| [BMS] Battery Cell Min Voltage | F229? |
-| [BMS] Battery Max Temperature | F252? |
-| [BMS] Battery Min Temperature | F253? |
-| ECU voltage | ? |
-| Distance since last SOH update | ? |
-
-## Notes
-
-### F264
-
-Originally investigated as a possible energy or SOH-related parameter.
-
-Current evidence indicates:
+PID:
 
 ```text
-F264 = BMS SOH dynamic measurement with a maximum variability of 0.22%
-
-Statistical data:
-PID F264
-
-Fórmula used:
-SOH = 100 - A/68
-
-Analysis:
-Average SOH = 98.51 %
-Standard Deviation = 0.052 %
-
-Estimated Util Capacity:
-66.99 kWh
-
-Estimate Degradation:
-1.49 %
+22F231
 ```
-Current Headers with data (service 22):
 
-| Header (Service 22) | Meaning |
-|-------------------|----------|
-| 7A1 | BMS principal |
-| 7A4 | BMS auxiliar |
-| 7A7 | HV Module - battery or termical management? |
-| 7F1 | Gateway |
-| 731 | VCU - Vehicle Control Unit |
-| 742 | MCU - Motor Control Unit |
-| 744 | OBC - Charging Module? |
+Formula:
 
-## 2DO
- - Obtain additional parameters like SOH, EFC, ...
- - Conclude the mapping
+```text
+(A*256+B)/10
+```
+
+Status:
+
+```text
+Validated
+```
+
+Notes:
+
+- Matches BMS reported SoC.
+- Stable*across*charging and driving sessions.
+
+--*
+
+### Battery Pack Voltage
+
+PID:
+
+*``text
+22F228
+```
+
+Status:
+
+```tex*
+Validated
+```
+
+*--
+
+###*Battery Pack Current
+
+PID:
+
+```tex*
+22F229
+```
+
+Status:
+
+```text
+Vali*ated
+```
+
+---
+
+### Battery Pack Po*er
+
+PID:
+
+```text
+22F236
+```
+
+Stat*s:
+
+```text
+Validated
+```
+
+Notes:
+*- Consistent with voltage × curren* calculations.
+
+---
+
+# ✅ SOH Candi*ate (Strong Evidence)
+
+## PID
+
+```*ext
+22F264
+```
+
+## Formula
+
+```tex*
+SOH = 100 - A/68
+*`*
+
+## Validation
+
+Recorded during:
+*- Vehicle charging
+- Vehicle parke*
+- Vehicle driving
+- SOC ranging f*om ~33% to 100%
+
+Observed values:
+*```text
+98.32%
+98.47%
+98.49%
+98.53*
+98.54%
+```
+
+Statistical analysis:*
+```text
+Average SOH:
+98.514%
+
+Sta*dard deviation:
+0.0516%
+```
+
+*urrent observed value:
+
+```text
+98*49%
+``*
+
+Interpretation:
+
+- Highly stable*
+-*Independent*of SOC.
+- Consistent with:
+
+```*ext
+SOCE = Excellent
+E*real*teo = 68 kWh
+Range = 485 km
+*``
+
+Status:
+
+```text
+Strong SOH ca*didate
+```
+
+---
+
+# ✅ Capacity Trac*ing
+
+## PID
+
+```text
+E_real_teo
+``*
+
+Observed value:
+
+```text
+68 kWh
+*``
+
+Notes:
+
+- Stable over all meas*rements.
+- Consistent with a batte*y showing minimal degradation.
+- S*pports the estimated SOH values.
+
+*--
+
+# 🟡 EFC Candidate
+
+## PID
+
+``*text
+22F27F
+```
+
+Current formula u*der validation:
+
+```text
+(A*16777216+B*65536+C*256+D)
+/
+1000000
+/
+68
+```
+
+Current result:
+
+```text
+14.67 EFC
+```
+
+Vehicle mileage:
+
+```text
+4980 km
+```
+
+Independent manual estimate:
+
+```text
+~13.xx EFC
+```
+
+Status:
+
+```text
+Promising
+Requires additional validation
+```
+
+Notes:
+
+- Provides values consistent with manually calculated EFC.
+- Significantly more realistic than previously tested formulas.
+
+---
+
+# 🟡 Cell Delta
+
+## Parameter
+
+```text
+V_cells_delta
+```
+
+Observed values:
+
+```text
+0.09 V
+0.092 V
+0.10 V
+0.10 V
+```
+
+Observed during:
+
+- Charging
+- Full charge
+- Vehicle parked
+- Vehicle driving
+
+Observations:
+
+- Surprisingly stable.
+- Does not correlate with battery degradation.
+- Battery continues to report:
+
+```text
+SOCE = Excellent
+SOH ≈ 98.5%
+Range = 485 km
+E_real_teo = 68 kWh
+```
+
+Current interpretation:
+
+```text
+Unknown
+Requires further investigation
+```
+
+Possible explanations:
+
+- Normal LFP behavior.
+- BMS-derived metric.
+- Not a simple Vmax-Vmin calculation.
+
+---
+
+# ✅ Thermal Management Observations
+
+Typical values observed:
+
+Battery:
+
+```text
+24°C - 38°C
+```
+
+Coolant:
+
+```text
+25°C
+```
+
+Temperature delta:
+
+```text
+1°C - 2°C
+```
+
+Observations:
+
+- Coolant temperature closely tracks battery temperature.
+- Charging performance matches expected DC charging curves.
+- No evidence of thermal throttling.
+- Suggests highly effective active thermal management.
+
+---
+
+# SOCE
+
+Current vehicle software:
+
+```text
+3.0.3
+```
+
+SOH display removed.
+
+BMS instead reports:
+
+```text
+SOCE = Excellent
+```
+
+Current evidence suggests:
+
+```text
+SOCE is likely a simplified battery-health classification rather than a direct SOH value.
+```
+
+---
+
+# Current Conclusions
+
+## Battery Health
+
+Estimated:
+
+```text
+SOH ≈ 98.5%
+```
+
+Estimated usable energy:
+
+```text
+≈67-68 kWh
+```
+
+Estimated degradation:
+
+```text
+≈1.5%
+```
+
+---
+
+## Confidence Table
+
+| PID | Description | Confidence |
+|------|------|------|
+| F231 | SOC | ⭐⭐⭐⭐⭐ |
+| F228 | Pack Voltage | ⭐⭐⭐⭐⭐ |
+| F229 | Pack Current | ⭐⭐⭐⭐⭐ |
+| F236 | Pack Power | ⭐⭐⭐⭐⭐ |
+| F264 | SOH Candidate | ⭐⭐⭐⭐☆ |
+| F27F | EFC Candidate | ⭐⭐⭐☆☆ |
+| V_cells_delta | Unknown | ⭐⭐☆☆☆ |
+
+---
+
+# Contributions
+
+Additional logs, captures and validation data are welcome.
+
+Please provide:
+
+- Vehicle model
+- Software version
+- Battery type
+- Odometer
+- Raw PID values
+- Calculated values
