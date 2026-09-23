@@ -393,3 +393,29 @@ Please provide:
 - Odometer
 - Raw PID values
 - Calculated values
+
+## Cell Voltage Delta
+
+Observed repeatedly:
+
+0.09V - 0.10V
+
+Observed:
+- During charging
+- After charging
+- Parked overnight
+- Driving
+
+Despite this:
+
+- SOH ≈ 98.5%
+- SOCE = Excellent
+- E_real_teo = 68 kWh
+- Range = 485 km
+
+Conclusion:
+
+The observed delta appears stable and currently shows
+no correlation with battery degradation.
+Further validation required.
+``
